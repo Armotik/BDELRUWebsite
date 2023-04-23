@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}| Adhérent n°{{ adherent.id}} {% endblock %}
+
+{% block body %}
+
+    <main>
+        <section>
+
+            <article class="account_desc">
+
+                <h2>Bienvenue {{ adherent.prenom }}</h2>
+
+
+                <h3><a href="{{ path('app_logout') }}" class="underline">Déconnexion !</a></h3>
+
+                {% if "ROLE_BUREAU" in adherent.roles %}
+
+                    <h4><a href="{{ path('admin') }}" class="colored  underline">Panel d'Administration</a></h4>
+
+                {% endif %}
+
+            </article>
+
+            <article class="account_informations">
+
+                <ul class="rules_items">
+                    <li>
+                        <nav>
+                            <label for="account__perso"><span>Informations Personnelles</span></label>
+                            <input type="checkbox" id="account__perso" class="rules_item">
+
+                            <ul class="rules_items_expand  account_informations_items">
+                                <li>
+                                    <h4>Prénom</h4>
+                                    <p>{{ adherent.prenom }}</p>
+                                </li>
+                                <li>
+                                    <h4>Nom</h4>
+                                    <p>{{ adherent.nom }}</p>
+                                </li>
+                                <li>
+                                    <h4>Date de naissance</h4>
+                                    <p>{{ adherent.dateNaissance.format('d/m/y') }}</p>
+                                </li>
+                                <li>
+                                    <h4>Sexe</h4>
+                                    <p>{{ adherent.sexe }}</p>
+                                </li>
+                                <li>
+                                    <h4>Mail</h4>
+                                    <p>{{ adherent.email }}</p>
+                                </li>
+                                {% if adherent.telephone is not null %}
+                                    <li>
+                                        <h4>Téléphone</h4>
+                                        <p>{{ adherent.telephone }}</p>
+                                    </li>
+                                {% endif %}
+
+                                {% if adherent.adresse is not null %}
+                                    <li>
+                                        <h4>Adresse</h4>
+                                        <p>{{ adherent.adresse }}</p>
+                                    </li>
+                                {% endif %}
+
+                                <li>
+                                    <h4>Mail</h4>
+                                    <p>{{ adherent.email }}</p>
+                                </li>
+                            </ul>
+                        </nav>
+                    </li>
+
+                    <li>
+                        <nav>
+                            <label for="account__univ"><span>Informations Université</span></label>
+                            <input type="checkbox" id="account__univ" class="rules_item">
+
+                            <ul class="rules_items_expand  account_informations_items">
+                                <li>
+                                    <h4>Formation</h4>
+                                    <p>{{ adherent.formation }}</p>
+                                </li>
+
+                                <li>
+                                    <h4>Niveau</h4>
+                                    <p>{{ adherent.niveau }}</p>
+                                </li>
+
+                                <li>
+                                    <h4>Composante</h4>
+                                    <p>{{ adherent.composante }}</p>
+                                </li>
+                            </ul>
+                        </nav>
+                    </li>
+
+                    <li>
+                        <nav>
+                            <label for="account__bde"><span>Informations BDE</span></label>
+                            <input type="checkbox" id="account__bde" class="rules_item">
+
+                            <ul class="rules_items_expand  account_informations_items">
+                                <li>
+                                    <h4>Numéro d'adhérent</h4>
+                                    <p>{{ adherent.id }}</p>
+                                </li>
+
+                                <li>
+                                    <h4>Date d'adhésion</h4>
+                                    <p>{{ adherent.dateAdhesion.format('d/m/y') }}</p>
+                                </li>
+
+                                <li>
+                                    <h4>Date de fin de validité</h4>
+                                    <p>{{ adherent.dateFinValidite.format('d/m/y') }}</p>
+                                </li>
+                            </ul>
+                        </nav>
+                    </li>
+
+                    <li>
+                        <nav>
+                            <label for="account__security"><span>Sécurité</span></label>
+                            <input type="checkbox" id="account__security" class="rules_item">
+
+                            <ul class="rules_items_expand  account_informations_items_column">
+                                <li>
+                                    <h4>Change Password</h4>
+                                    {{ form_start(form) }}
+                                    {{ form_row(form.plainPassword, {
+                                        label: 'Nouveau mot de passe',
+                                    }) }}
+                                    {{ form_row(form.confirmPassword, {
+                                        label: 'Confirmer le mot de passe',
+                                    }) }}
+
+                                    <button type="submit" class="btn">Envoyer</button>
+                                    {{ form_end(form) }}
+                                </li>
+                            </ul>
+                        </nav>
+                    </li>
+                </ul>
+            </article>
+
+        </section>
+    </main>
+
+{% endblock %}
+

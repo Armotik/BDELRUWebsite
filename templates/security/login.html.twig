@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+
+    <main>
+        <section>
+            <article class="login_desc">
+                <h2>
+                    Connexion !
+                </h2>
+            </article>
+        </section>
+
+        {% if error %}
+
+            <article class="login_error">
+                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            </article>
+
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
+
+        <article class="login_form">
+
+            <form method="post">
+                <label for="inputNbA">Numéro d'adhérent</label>
+                <input type="number" name="nbA" id="inputNbA"
+                       class="form-control" required autofocus>
+                <label for="inputPassword">Mot de passe</label>
+                <input type="password" name="password" id="inputPassword" class="form-control"
+                       autocomplete="current-password" required>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <div class="login_form_adhesion">
+                    <p>
+                        Pour vous adhérer au BDE, rendez-vous au rez-de-chaussé du Bâtiment MSI lors de nos horaires
+                        d'ouverture. Pour plus d'informations, <a href="https://discord.gg/64ncf5HZSQ" class="underline">cliquez ici</a> et rejoignez
+                        notre serveur Discord.
+                    </p>
+                </div>
+
+                <button type="submit">Connexion</button>
+            </form>
+        </article>
+    </main>
+
+{% endblock %}

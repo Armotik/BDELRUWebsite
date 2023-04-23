@@ -1,0 +1,12 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title %} BDE LRU | Panel d'Administration {% endblock %}
+
+{% block page_content %}
+
+    <ul>
+        <li style="margin: 15px"><a href="{{ path('app_compte', {"id": app.user.id}) }}">Retour à votre compte</a></li>
+        <li style="margin: 15px"><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+    </ul>
+
+{% endblock %}

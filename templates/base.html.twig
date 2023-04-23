@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>BDE LRU {% block title %}{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+
+    <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+
+<header>
+    <nav class="header_nav">
+        <ul class="nav_items">
+            <li><a href="{{ path('app_default_qsn') }}" data-text="Qui sommes-nous ?">Qui sommes-nous ?</a></li>
+            <li><a href="#" data-text="Événements">Événements</a></li>
+            <li><a href="#" data-text="Partenariat">Partenariats</a></li>
+
+            {% if app.user %}
+
+                <li><a href="{{ path('app_compte', {'id': app.user.id}) }}" data-text="{{ app.user.prenom }}">{{ app.user.prenom }}</a></li>
+
+            {% else %}
+
+                <li><a href="{{ path('app_login') }}" data-text="Compte">Compte</a></li>
+
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+
+{% block body %}{% endblock %}
+
+<footer class="footer">
+    <ul class="footer-items">
+        <ul class="footer-items-contact">
+            <li><i class="fal fa-at"></i> bde.lru@gmail.com</li>
+            <li><i class="fal fa-copyright"></i> 2023 <a href="{{ path('app_default') }}">BDE LRU</a></li>
+        </ul>
+
+        <img src="{{ asset('img/logo_insti_classique.png') }}" alt="Logo BDE LRU" id="footer-logo">
+
+        <ul class="footer-items-extand">
+            <li><a href="#">Mentions Légales</a></li>
+            <li><a href="#">CGU</a></li>
+            <li class="footer-contact-items">
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="https://discord.gg/wruQnk2VXY" target="_blank"><i class="fab fa-discord"></i></a>
+                <a href="https://www.instagram.com/bde_lru/" target="_blank"><i class="fab fa-instagram"></i></a>
+            </li>
+        </ul>
+    </ul>
+</footer>
+</body>
+</html>
