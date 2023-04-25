@@ -26,7 +26,7 @@
     <nav class="header_nav">
         <ul class="nav_items">
             <li><a href="{{ path('app_default_qsn') }}" data-text="Qui sommes-nous ?">Qui sommes-nous ?</a></li>
-            <li><a href="#" data-text="Événements">Événements</a></li>
+            <li><a href="{{ path('app_default_events') }}" data-text="Événements">Événements</a></li>
             <li><a href="#" data-text="Partenariat">Partenariats</a></li>
 
             {% if app.user %}
@@ -51,7 +51,7 @@
             <li><i class="fal fa-copyright"></i> 2023 <a href="{{ path('app_default') }}">BDE LRU</a></li>
         </ul>
 
-        <img src="{{ asset('img/logo_insti_classique.png') }}" alt="Logo BDE LRU" id="footer-logo">
+        <img src="{{ asset('img/logo_tp_classique.png') }}" alt="Logo BDE LRU" id="footer-logo">
 
         <ul class="footer-items-extand">
             <li><a href="#">Mentions Légales</a></li>

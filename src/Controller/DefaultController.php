@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\EvenementsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,5 +27,45 @@ class DefaultController extends AbstractController
     public function qsn(): Response
     {
         return $this->render('default/qsn.html.twig');
+    }
+
+    #[Route('/events', name: 'app_default_events')]
+    public function events(EvenementsRepository $evenementsRepository): Response
+    {
+
+        $currentDate = new \DateTime();
+        $events = $evenementsRepository->findAll();
+
+        $soirees = [];
+        $actualites = [];
+        $journees = [];
+        $autres = [];
+
+        foreach ($events as $event) {
+            if (str_starts_with($event->getDesignation(), "BDE_SR")) {
+                $soirees[] = $event;
+            }
+
+            if (str_starts_with($event->getDesignation(), "BDE_AC")) {
+                $actualites[] = $event;
+            }
+
+            if (str_starts_with($event->getDesignation(), "BDE_JR")) {
+                $journees[] = $event;
+            }
+
+            if (str_starts_with($event->getDesignation(), "BDE_AU")) {
+                $autres[] = $event;
+            }
+        }
+
+        return $this->render('default/events.html.twig', [
+            'events' => $evenementsRepository->findAll(),
+            'soirees' => $soirees,
+            'actualites' => $actualites,
+            'journees' => $journees,
+            'autres' => $autres,
+            'currentDate' => $currentDate
+        ]);
     }
 }

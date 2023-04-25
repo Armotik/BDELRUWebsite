@@ -3,9 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Adherent;
-use DateTimeZone;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
@@ -13,7 +11,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class AdherentCrudController extends AbstractCrudController
 {
@@ -39,15 +36,15 @@ class AdherentCrudController extends AbstractCrudController
     {
 
         return [
-            IdField::new('id', 'Numéro d\'adhérent'),
-            TextField::new('prenom', 'Prénom'),
-            TextField::new('nom', 'Nom'),
-            TextField::new('sexe', 'Sexe'),
-            TextField::new('email', 'Email'),
+            IdField::new('id', 'Numéro d\'adhérent')->setRequired(true),
+            TextField::new('prenom', 'Prénom')->setRequired(true),
+            TextField::new('nom', 'Nom')->setRequired(true),
+            TextField::new('sexe', 'Sexe')->setRequired(true),
+            TextField::new('email', 'Email')->setRequired(true),
             TextField::new('telephone', 'Téléphone'),
             TextEditorField::new('adresse', 'Adresse'),
-            DateField::new('date_naissance', 'Date de naissance'),
-            TextField::new('formation', 'Formation'),
+            DateField::new('date_naissance', 'Date de naissance')->setRequired(true),
+            TextField::new('formation', 'Formation')->setRequired(true),
             TextField::new('niveau', 'Niveau')->setFormType('Symfony\Component\Form\Extension\Core\Type\ChoiceType')->setFormTypeOptions([
                 'choices' => [
                     'L1' => 'L1',
@@ -70,10 +67,10 @@ class AdherentCrudController extends AbstractCrudController
                     'AUTRE' => 'AUTRE',
                 ],
             ]),
-            DateField::new('date_adhesion', 'Date d\'inscription'),
-            DateField::new('date_creation', 'Date de création'),
-            DateField::new('date_fin_validite', 'Date de fin de validité'),
-            BooleanField::new('statut', 'Statut'),
+            DateField::new('date_adhesion', 'Date d\'inscription')->setRequired(true),
+            DateField::new('date_creation', 'Date de création')->setRequired(true),
+            DateField::new('date_fin_validite', 'Date de fin de validité')->setRequired(true),
+            BooleanField::new('statut', 'Payé ?'),
             BooleanField::new('carte_delivre', 'Carte délivrée'),
             BooleanField::new('studypass', 'Studypass'),
             CollectionField::new('roles', 'Rôles')->setFormTypeOptions([

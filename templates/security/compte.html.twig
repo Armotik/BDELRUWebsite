@@ -7,7 +7,7 @@
     <main>
         <section>
 
-            <article class="account_desc">
+            <article class="article_desc">
 
                 <h2>Bienvenue {{ adherent.prenom }}</h2>
 
@@ -24,13 +24,13 @@
 
             <article class="account_informations">
 
-                <ul class="rules_items">
+                <ul class="hidden_list_items">
                     <li>
                         <nav>
                             <label for="account__perso"><span>Informations Personnelles</span></label>
-                            <input type="checkbox" id="account__perso" class="rules_item">
+                            <input type="checkbox" id="account__perso" class="hidden_list_item">
 
-                            <ul class="rules_items_expand  account_informations_items">
+                            <ul class="hidden_list_item_expand  account_informations_items">
                                 <li>
                                     <h4>Prénom</h4>
                                     <p>{{ adherent.prenom }}</p>
@@ -76,9 +76,9 @@
                     <li>
                         <nav>
                             <label for="account__univ"><span>Informations Université</span></label>
-                            <input type="checkbox" id="account__univ" class="rules_item">
+                            <input type="checkbox" id="account__univ" class="hidden_list_item">
 
-                            <ul class="rules_items_expand  account_informations_items">
+                            <ul class="hidden_list_item_expand  account_informations_items">
                                 <li>
                                     <h4>Formation</h4>
                                     <p>{{ adherent.formation }}</p>
@@ -100,9 +100,9 @@
                     <li>
                         <nav>
                             <label for="account__bde"><span>Informations BDE</span></label>
-                            <input type="checkbox" id="account__bde" class="rules_item">
+                            <input type="checkbox" id="account__bde" class="hidden_list_item">
 
-                            <ul class="rules_items_expand  account_informations_items">
+                            <ul class="hidden_list_item_expand  account_informations_items">
                                 <li>
                                     <h4>Numéro d'adhérent</h4>
                                     <p>{{ adherent.id }}</p>
@@ -124,9 +124,9 @@
                     <li>
                         <nav>
                             <label for="account__security"><span>Sécurité</span></label>
-                            <input type="checkbox" id="account__security" class="rules_item">
+                            <input type="checkbox" id="account__security" class="hidden_list_item">
 
-                            <ul class="rules_items_expand  account_informations_items_column">
+                            <ul class="hidden_list_item_expand  account_informations_items_column">
                                 <li>
                                     <h4>Change Password</h4>
                                     {{ form_start(form) }}

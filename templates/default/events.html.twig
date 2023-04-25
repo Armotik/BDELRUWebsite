@@ -1,0 +1,458 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}| Nos Événements {% endblock %}
+
+{% block body %}
+
+    <main>
+        <section>
+            <article class="article_desc">
+
+                <h2>Nos événements</h2>
+                <h4>Retrouvez ici les événements à venir et passé de l'association, ainsi que nos actualités.</h4>
+
+            </article>
+
+            <article class="events">
+
+                <ul class="hidden_list_items">
+                    <li>
+                        <nav>
+                            <label for="nextParties"><span>Nos prochaines soirées</span></label>
+                            <input type="checkbox" id="nextParties" class="hidden_list_item">
+
+                            <ul class="hidden_list_item_expand">
+
+                                {% if soirees|length == 0 %}
+                                    <li>
+                                        <h4>Aucune soirée prévue</h4>
+                                        <p>Mais ne vous en faites pas, elle arrivera bientôt</p>
+                                    </li>
+                                {% else %}
+
+                                    {% for soiree in soirees %}
+
+                                            {% if currentDate <= soiree.date %}
+                                                <li>
+
+                                                    <div class="separator">
+                                                        <h3>{{ soiree.nom }}</h3>
+                                                        <p>{{ soiree.description }}</p>
+                                                    </div>
+
+                                                    <div class="separator div_flex">
+                                                        <h4>{{ soiree.date.format('d/m/Y') }}</h4>
+
+                                                        {% if soiree.heureDebut is not null %}
+                                                            <h4>{{ soiree.heureDebut }}
+                                                                - {{ soiree.heureFin }}</h4>
+                                                        {% endif %}
+                                                    </div>
+
+
+                                                    <div class="separator">
+
+                                                        <h3>Emplacement</h3>
+
+                                                        {% if soiree.mapUrl is not null %}
+
+                                                            <iframe src="{{ soiree.mapUrl }}"
+                                                                    width="600" height="450" style="border:0;"
+                                                                    allowfullscreen=""
+                                                                    loading="lazy"
+                                                                    referrerpolicy="no-referrer-when-downgrade">
+                                                            </iframe>
+
+                                                        {% endif %}
+
+                                                        <p>{{ soiree.emplacement }}</p>
+
+                                                    </div>
+
+
+                                                    {% if soiree.tarifA is not null and soiree.tarifNA is not null %}
+                                                        <div class="separator">
+
+                                                            <h3>Tarifs</h3>
+
+                                                            <table>
+                                                                <tr>
+                                                                    <th>Adhérent</th>
+                                                                    <th>Non Adhérent</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    {% if soiree.tarifA == 0.0 %}
+                                                                        <td>Gratuit</td>
+                                                                    {% else %}
+                                                                        <td>{{ soiree.tarifA }} €</td>
+                                                                    {% endif %}
+                                                                    <td>{{ soiree.tarifNA }} €</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    {% endif %}
+                                                </li>
+                                            {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="actualite">
+                <ul class="hidden_list_items">
+                    <li>
+                        <nav>
+                            <label for="nextActu"><span>Nos Actualités</span></label>
+                            <input type="checkbox" id="nextActu" class="hidden_list_item">
+
+                            <ul class="hidden_list_item_expand">
+
+                                {% if actualites|length == 0 %}
+                                    <li>
+                                        <h4>Aucune actualité</h4>
+                                        <p>Mais ne vous en faites pas, ça arrivera bientôt</p>
+                                    </li>
+                                {% else %}
+
+                                    {% for actu in actualites %}
+
+                                        {% if currentDate <= actu.date %}
+                                            <li>
+
+                                                <div class="separator">
+                                                    <h3>{{ actu.nom }}</h3>
+                                                    <p>{{ actu.description }}</p>
+                                                </div>
+
+                                                <div class="separator div_flex">
+                                                    <h4>{{ actu.date.format('d/m/Y') }}</h4>
+
+                                                    {% if actu.heureDebut is not null %}
+                                                        <h4>{{ actu.heureDebut }}
+                                                            - {{ actu.heureFin }}</h4>
+                                                    {% endif %}
+                                                </div>
+
+
+                                                <div class="separator">
+
+                                                    <h3>Emplacement</h3>
+
+                                                    {% if actu.mapUrl is not null %}
+
+                                                        <iframe src="{{ actu.mapUrl }}"
+                                                                width="600" height="450" style="border:0;"
+                                                                allowfullscreen=""
+                                                                loading="lazy"
+                                                                referrerpolicy="no-referrer-when-downgrade">
+                                                        </iframe>
+
+                                                    {% endif %}
+
+                                                    <p>{{ actu.emplacement }}</p>
+
+                                                </div>
+
+
+                                                {% if actu.tarifA is not null and actu.tarifNA is not null %}
+                                                    <div class="separator">
+
+                                                        <h3>Tarifs</h3>
+
+                                                        <table>
+                                                            <tr>
+                                                                <th>Adhérent</th>
+                                                                <th>Non Adhérent</th>
+                                                            </tr>
+                                                            <tr>
+                                                                {% if actu.tarifA == 0.0 %}
+                                                                    <td>Gratuit</td>
+                                                                {% else %}
+                                                                    <td>{{ actu.tarifA }} €</td>
+                                                                {% endif %}
+                                                                <td>{{ actu.tarifNA }} €</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                {% endif %}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="events_day">
+
+                <ul class="hidden_list_items">
+                    <li>
+                        <nav>
+                            <label for="nextDayEvents"><span>Nos événements en journée</span></label>
+                            <input type="checkbox" id="nextDayEvents" class="hidden_list_item">
+
+                            <ul class="hidden_list_item_expand">
+
+                                {% if journees|length == 0 %}
+                                    <li>
+                                        <h4>Aucun événement prévu</h4>
+                                        <p>Mais ne vous en faites pas, ça arrivera bientôt</p>
+                                    </li>
+                                {% else %}
+
+                                    {% for jour in journees %}
+
+                                        {% if currentDate <= jour.date %}
+                                            <li>
+
+                                                <div class="separator">
+                                                    <h3>{{ jour.nom }}</h3>
+                                                    <p>{{ jour.description }}</p>
+                                                </div>
+
+                                                <div class="separator div_flex">
+                                                    <h4>{{ jour.date.format('d/m/Y') }}</h4>
+
+                                                    {% if jour.heureDebut is not null %}
+                                                        <h4>{{ jour.heureDebut }}
+                                                            - {{ jour.heureFin }}</h4>
+                                                    {% endif %}
+                                                </div>
+
+
+                                                <div class="separator">
+
+                                                    <h3>Emplacement</h3>
+
+                                                    {% if jour.mapUrl is not null %}
+
+                                                        <iframe src="{{ jour.mapUrl }}"
+                                                                width="600" height="450" style="border:0;"
+                                                                allowfullscreen=""
+                                                                loading="lazy"
+                                                                referrerpolicy="no-referrer-when-downgrade">
+                                                        </iframe>
+
+                                                    {% endif %}
+
+                                                    <p>{{ jour.emplacement }}</p>
+
+                                                </div>
+
+
+                                                {% if jour.tarifA is not null and jour.tarifNA is not null %}
+                                                    <div class="separator">
+
+                                                        <h3>Tarifs</h3>
+
+                                                        <table>
+                                                            <tr>
+                                                                <th>Adhérent</th>
+                                                                <th>Non Adhérent</th>
+                                                            </tr>
+                                                            <tr>
+                                                                {% if jour.tarifA == 0.0 %}
+                                                                    <td>Gratuit</td>
+                                                                {% else %}
+                                                                    <td>{{ jour.tarifA }} €</td>
+                                                                {% endif %}
+                                                                <td>{{ jour.tarifNA }} €</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                {% endif %}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="other_events">
+
+                <ul class="hidden_list_items">
+                    <li>
+                        <nav>
+                            <label for="nextOtherEvents"><span>Autres événements</span></label>
+                            <input type="checkbox" id="nextOtherEvents" class="hidden_list_item">
+
+                            <ul class="hidden_list_item_expand">
+
+                                {% if autres|length == 0 %}
+                                    <li>
+                                        <h4>Aucune soirée prévue</h4>
+                                        <p>Mais ne vous en faites pas, elle arrivera bientôt</p>
+                                    </li>
+                                {% else %}
+
+                                    {% for autre in autres %}
+
+                                        {% if currentDate <= autre.date %}
+                                            <li>
+
+                                                <div class="separator">
+                                                    <h3>{{ autre.nom }}</h3>
+                                                    <p>{{ autre.description }}</p>
+                                                </div>
+
+                                                <div class="separator div_flex">
+                                                    <h4>{{ autre.date.format('d/m/Y') }}</h4>
+
+                                                    {% if autre.heureDebut is not null %}
+                                                        <h4>{{ autre.heureDebut }}
+                                                            - {{ autre.heureFin }}</h4>
+                                                    {% endif %}
+                                                </div>
+
+
+                                                <div class="separator">
+
+                                                    <h3>Emplacement</h3>
+
+                                                    {% if autre.mapUrl is not null %}
+
+                                                        <iframe src="{{ autre.mapUrl }}"
+                                                                width="600" height="450" style="border:0;"
+                                                                allowfullscreen=""
+                                                                loading="lazy"
+                                                                referrerpolicy="no-referrer-when-downgrade">
+                                                        </iframe>
+
+                                                    {% endif %}
+
+                                                    <p>{{ autre.emplacement }}</p>
+
+                                                </div>
+
+
+                                                {% if autre.tarifA is not null and autre.tarifNA is not null %}
+                                                    <div class="separator">
+
+                                                        <h3>Tarifs</h3>
+
+                                                        <table>
+                                                            <tr>
+                                                                <th>Adhérent</th>
+                                                                <th>Non Adhérent</th>
+                                                            </tr>
+                                                            <tr>
+                                                                {% if autre.tarifA == 0.0 %}
+                                                                    <td>Gratuit</td>
+                                                                {% else %}
+                                                                    <td>{{ autre.tarifA }} €</td>
+                                                                {% endif %}
+                                                                <td>{{ autre.tarifNA }} €</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                {% endif %}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </li>
+                </ul>
+            </article>
+
+            <article class="old_events">
+
+                <ul class="hidden_list_items">
+                    <li>
+                        <nav>
+                            <label for="oldEvents"><span>Anciens événements</span></label>
+                            <input type="checkbox" id="oldEvents" class="hidden_list_item">
+
+                            <ul class="hidden_list_item_expand">
+
+                                {% if events|length == 0 %}
+                                    <li>
+                                        <h4>Aucun ancien événement</h4>
+                                        <p>Mais ne vous en faites pas, ça arrivera bientôt</p>
+                                    </li>
+                                {% else %}
+
+                                    {% for event in events %}
+
+                                        {% if currentDate > event.date %}
+                                            <li>
+
+                                                <div class="separator">
+                                                    <h3>{{ event.nom }}</h3>
+                                                    <p>{{ event.description }}</p>
+                                                </div>
+
+                                                <div class="separator div_flex">
+                                                    <h4>{{ event.date.format('d/m/Y') }}</h4>
+
+                                                    {% if event.heureDebut is not null %}
+                                                        <h4>{{ event.heureDebut }}
+                                                            - {{ event.heureFin }}</h4>
+                                                    {% endif %}
+                                                </div>
+
+
+                                                <div class="separator">
+
+                                                    <h3>Emplacement</h3>
+
+                                                    {% if event.mapUrl is not null %}
+
+                                                        <iframe src="{{ event.mapUrl }}"
+                                                                width="600" height="450" style="border:0;"
+                                                                allowfullscreen=""
+                                                                loading="lazy"
+                                                                referrerpolicy="no-referrer-when-downgrade">
+                                                        </iframe>
+
+                                                    {% endif %}
+
+                                                    <p>{{ event.emplacement }}</p>
+
+                                                </div>
+
+
+                                                {% if event.tarifA is not null and event.tarifNA is not null %}
+                                                    <div class="separator">
+
+                                                        <h3>Tarifs</h3>
+
+                                                        <table>
+                                                            <tr>
+                                                                <th>Adhérent</th>
+                                                                <th>Non Adhérent</th>
+                                                            </tr>
+                                                            <tr>
+                                                                {% if event.tarifA == 0.0 %}
+                                                                    <td>Gratuit</td>
+                                                                {% else %}
+                                                                    <td>{{ event.tarifA }} €</td>
+                                                                {% endif %}
+                                                                <td>{{ event.tarifNA }} €</td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                {% endif %}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </li>
+                </ul>
+            </article>
+        </section>
+    </main>
+
+{% endblock %}
+
